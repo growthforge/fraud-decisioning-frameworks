@@ -4,7 +4,7 @@
 
 import type { Typology } from './types.ts'
 
-export const TYPOLOGY_INTRO = "Fourteen typologies, each with the shape of rule that catches it and the legitimate behaviour that rule will also catch. The false-positive column is the reason this page exists. Anyone can list fraud signals. What separates someone who has run a rule estate is knowing which innocent customers each signal collects on the way through. On a spend-management product the innocent explanations are unusually strong, because the attack shape and the product's happy path are frequently the same shape: many new virtual cards fanning out to many new merchants, a burst of small unsettled authorisations, a new admin issuing cards from an unfamiliar device, a young company drawing its full limit the week after it raises. A rule tuned without that column does not reduce fraud. It reduces the product."
+export const TYPOLOGY_INTRO = "Fourteen typologies, each with the shape of rule that catches it and the legitimate behaviour that rule will also catch. The false-positive column is the reason this page exists. Anyone can list fraud signals. What separates someone who has run a rule estate is knowing which innocent customers each signal collects on the way through. On a spend-management product the innocent explanations are unusually strong, because the attack shape and the product's happy path are frequently the same shape: many new virtual cards fanning out to many new merchants, a burst of small unsettled authorisations, a new admin issuing cards from an unfamiliar device, a young company drawing its full limit the week after it raises. A rule tuned without that column does not reduce fraud. It reduces the product.\n\nOne note on sourcing. Where a decline or response code is named below it comes from Visa's published enumeration and card-testing guidance, because that is the bulletin that is public. The same attack shapes appear on every scheme; the code values do not. Anyone building this on a different network should take the mechanism from here and the codes from their own scheme's rulebook — quoting one scheme's response codes at an issuer on another is a small error that reads as a large one."
 
 export const TYPOLOGIES: Typology[] = [
   {
@@ -142,6 +142,29 @@ export const TYPOLOGIES: Typology[] = [
     "layer": "near-real-time alert",
     "productHook": "INFERENCE about product shape, not a claim about any firm: shared virtual cards, vendor cards and multi-entity accounts mean the person reviewing a statement is very often not the person who made the purchase. That structurally raises non-recognition, the dominant benign cause of disputes, and makes descriptor quality and receipt matching a fraud control in their own right.",
     "metric": "Pre-dispute deflection rate: the share of intended disputes resolved with evidence before a chargeback is raised. Limitation: it is trivially gameable by making the dispute journey harder, which is a Consumer Duty problem rather than an improvement. It is only meaningful read alongside complaint volume and the eventual chargeback win rate."
+  },
+  {
+    "id": "funding-rail-abuse",
+    "name": "Third-party loading and the authorised negative balance",
+    "family": "AML-adjacent",
+    "oneLine": "Value enters the account from somewhere it contractually should not, or leaves against a balance that has not settled yet.",
+    "how": "A prefunded e-money account is a poor target for classic credit fraud — there is nothing to draw down beyond what has been loaded. The exposure moves to the funding rail itself. Two shapes matter. First, an inbound load from a party who is not the customer: on many spend products this is contractually prohibited, so it is not merely unusual, it is a breach of the agreement and a placement route in one. Second, the settlement gap: where an automatic top-up pulls by direct debit when the balance falls below a set point, spending may be permitted against an authorised negative balance until the debit clears. That window is real, uncollateralised exposure on a product most people describe as prefunded.",
+    "signals": [
+      "A load arriving from a name, account or institution that does not match the customer's registered funding source",
+      "Load volume that outruns the customer's filed turnover, headcount or observed operating pattern",
+      "Spend clustering inside the settlement window and falling away once the debit clears — the pattern repeating, cycle after cycle",
+      "A direct debit that fails or is recalled after the spend against it has already cleared",
+      "A funding source that changes shortly before a step-change in spend",
+      "Load, spend to cash-equivalent value, and repeat, with negligible balance retained between cycles",
+      "Rapid load-and-withdraw across ATM or near-cash merchant categories"
+    ],
+    "ruleShape": "Two rules with different clocks and different owners. On the way in, a funding-source reconciliation rule: every load matched against the registered funding instrument for that customer, with any mismatch routed to investigation rather than declined outright, because a legitimate rebanking looks identical on the first event. On the way out, an exposure rule watching spend inside the unsettled window against that customer's own trailing pattern, escalating where the ratio of unsettled spend to settled funding breaks from its baseline, and where a prior debit has failed. The important design point is that the first rule is a contractual control, not a risk score — the agreement already says what is permitted, so the rule is enforcing a term rather than estimating a probability, and it can be stated in a specification without a threshold at all.",
+    "action": "investigate",
+    "falsePositive": "A group treasury function funding a subsidiary's account, or an investor paying a first round directly into the operating account rather than routing it through the parent. The name on the inbound payment is genuinely not the account holder, the amount is genuinely out of proportion to filed turnover, and everything about it is legitimate and, for an early-stage company, completely ordinary.",
+    "fpWhy": "Multi-entity structures are a documented feature of these products, which means intra-group funding is a supported use case rather than an edge case. A rule that treats every third-party inbound as a breach will fire hardest on exactly the customers a spend platform most wants: funded startups and groups with a central treasury. The control has to distinguish a related party from an unrelated one, and that is an entity-resolution problem rather than a threshold problem.",
+    "layer": "batch / periodic review",
+    "productHook": "INFERENCE about product shape, not a claim about any firm. Reasoned from documented features of spend-management products generally: prefunded e-money accounts, a prohibition on loading by anyone other than the customer, automatic top-up by direct debit with an authorised negative balance permitted until it settles, and multi-entity accounts.",
+    "metric": "Value of unsettled exposure at peak, alongside the count of funding-source mismatches resolved as legitimate. The limitation is that the first is only measurable after the fact and the second is dominated by benign cases — so neither works as a real-time trigger, and reading either as a fraud rate would be wrong."
   },
   {
     "id": "employee-card-misuse",

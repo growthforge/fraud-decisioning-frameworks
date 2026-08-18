@@ -3,6 +3,7 @@ import { SectionHeader } from '../components/common/SectionHeader'
 import { DetailDrawer } from '../components/common/DetailDrawer'
 import { FRAME } from '../data/frame.ts'
 import { SCHEMES, SCHEME_NOTE } from '../data/schemes.ts'
+import { CONTINUITY, CONTINUITY_NOTE } from '../data/continuity.ts'
 
 /* The four whose pressures pull hardest against each other — enough to make the
    point at a size that survives a screen share. */
@@ -56,6 +57,21 @@ export function LayerPage({ presenting = false }: { presenting?: boolean }) {
                   <p className="ho-route"><b>{h.from}</b><i aria-hidden="true">→</i><b>{h.to}</b></p>
                   <p className="ho-what">{h.what}</p>
                   <p className="ho-fail">{h.failsHow}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="continuity">
+            <h3 className="sub">The function, not the change</h3>
+            <p className="tech-lede">{CONTINUITY_NOTE}</p>
+            <ul>
+              {CONTINUITY.map((x) => (
+                <li key={x.risk}>
+                  <h4>{x.risk}</h4>
+                  <p className="ct-looks">{x.looksLike}</p>
+                  <p className="ct-art"><span>What fixes it</span>{x.artefact}</p>
+                  <p className="ct-test"><span>How to test whether it is fixed</span>{x.test}</p>
                 </li>
               ))}
             </ul>

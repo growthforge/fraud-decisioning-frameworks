@@ -103,6 +103,11 @@ export const ARTEFACTS: {
         "field": "Linked inventory entry and named overlaps",
         "value": "Inventory: FC-INV-2119 in the financial crime rule and model inventory. Control map reference: CTRL-ATO-03.\nSupersedes ATO-SEQ-014 v2.2, marked Retired with effect 13 July 2026 and retained in the inventory rather than deleted.\nRelated live rules, with the overlap stated: ATO-DEV-021 shared-device graph, overlapping on leg one; BEC-PAYEE-007 supplier bank-detail settling period, overlapping on one leg three action; CRD-ISS-033 card-issuance velocity, overlapping on the card burst condition.\nThe inventory holds owner, version, status and next review date, and is the single source of truth for those four. This spec defers to it.",
         "why": "SR 11-7 expects an inventory of models implemented, in development or recently retired, and the inventory is the first artefact anyone external asks for (CONFIRMED). Leave the link blank and the two documents drift, producing the specific failure of a rule disabled in the tool but still shown as a live control on the map. At that point the documented control environment is factually wrong, and it is wrong in the direction of claiming coverage the firm does not have. Recording overlap with named rules is what keeps attribution possible later, because two rules firing on the same population make it impossible to say what either one contributes."
+      },
+      {
+        "field": "Reporting obligations downstream of this rule",
+        "value": "This rule feeds the account-takeover queue, which is a suspicion-forming route as well as a loss queue. Tightening it or switching it off reduces the input to a reporting obligation, not only the input to an investigation backlog. The MLRO is therefore sighted before any change to this rule is deployed, not informed after it.",
+        "why": "Almost no rule specification carries this field, and it is the one that catches the failure nobody sees. Fraud and AML share their inputs and not their outputs, so a change made for entirely sound loss reasons can quietly reduce the volume of suspicion reaching the MLRO. If the dependency is not written on the rule, the person tuning it in eighteen months has no way of knowing it exists. Without this field the specification names a failure mode elsewhere on this site that it could not itself catch."
       }
     ]
   },
@@ -124,6 +129,7 @@ export const ARTEFACTS: {
     "Approver, date, conditions and dissent",
     "Monitoring plan, by cadence and owner",
     "Rollback trigger and who may pull it",
+    "Reporting obligations downstream — does anything suppressible here feed a suspicion route, and who must be sighted before it changes?",
     "Review date and event triggers",
     "Linked inventory entry and named overlaps"
   ],
