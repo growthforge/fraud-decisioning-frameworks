@@ -60,6 +60,17 @@ export function SimulatorPage({ presenting = false }: { presenting?: boolean }) 
   const over = c.overCapacityBy > 0
   const fpSaved = globalTrue.fp - metrics(pop, (i) => seg.thresholds[i], days).fp
 
+  /* The threshold at which the fraud value stopped first exceeds the legitimate value
+     caught alongside it. It is the sharpest number on this page and it sits a long way
+     above where a capacity-driven choice would put you. */
+  const crossover = useMemo(() => {
+    for (let t = 0; t <= 100; t += 1) {
+      const q = metrics(pop, t, days)
+      if (q.tpValue >= q.fpValue) return { th: t, recall: q.recall, alerts: q.alertsPerDay }
+    }
+    return null
+  }, [pop, days])
+
   const controls = (
     <div className="sim-controls">
       <div className="sim-slider">
@@ -193,17 +204,19 @@ export function SimulatorPage({ presenting = false }: { presenting?: boolean }) 
           <ConfusionGrid tp={m.tp} fp={m.fp} fn={m.fn} tn={m.tn} />
         </div>
         <div>
-          <h3 className="sub">What it cost, in four currencies</h3>
+          <h3 className="sub">What it cost — and what the rule actually does</h3>
+          <p className="cost-frame">
+            This models a rule that <strong>raises an alert</strong>, not one that declines. That matters,
+            because the same firing event costs completely different things depending on the action. An
+            alert costs analyst time and a delay. A decline costs the customer the purchase. Pricing a
+            false positive without saying which action produced it is how a rule ends up justified on the
+            wrong arithmetic.
+          </p>
           <dl className="cost-list">
             <div>
               <dt>Fraud value stopped</dt>
               <dd>{money(c.fraudPrevented)}</dd>
               <p>assuming {Math.round(COSTS.preventedShare * 100)}% of a stopped fraud is genuinely avoided rather than simply attempted elsewhere</p>
-            </div>
-            <div>
-              <dt>Legitimate spend blocked</dt>
-              <dd>{money(c.legitimateBlocked)}</dd>
-              <p>the share assumed abandoned rather than retried. The true figure is not observable — a declined customer usually just leaves</p>
             </div>
             <div>
               <dt>Analyst time generated</dt>
@@ -215,9 +228,40 @@ export function SimulatorPage({ presenting = false }: { presenting?: boolean }) 
               <dd>{over ? `${c.overCapacityBy.toFixed(0)} over` : `${(COSTS.reviewCapacityPerDay - m.alertsPerDay).toFixed(0)} to spare`}</dd>
               <p>a threshold the queue cannot absorb is not a conservative choice. It is a control failure that shows up as undetected fraud</p>
             </div>
+            <div>
+              <dt>If the same rule declined instead</dt>
+              <dd>{money(c.legitimateBlocked)}</dd>
+              <p>of legitimate spend stopped rather than delayed, at the same operating point. The analyst cost disappears and the customer cost replaces it — which is why the action is part of the rule design, not a detail added afterwards</p>
+            </div>
           </dl>
         </div>
       </div>
+
+      {crossover ? (
+        <div className="crossover">
+          <h3 className="sub">The number this page is really about</h3>
+          <p>
+            At the operating point above, the fraud value stopped is{' '}
+            <b>{money(globalTrue.tpValue * COSTS.preventedShare)}</b> and the legitimate value caught
+            alongside it is <b>{money(globalTrue.fpValue)}</b>. On these synthetic figures the control
+            touches several times more good money than bad — and that is not a broken rule, it is what a
+            high-recall control on a rare event looks like.
+          </p>
+          <p>
+            The two only cross at a threshold of about <b>{crossover.th}</b>, where recall has fallen to{' '}
+            <b>{(crossover.recall * 100).toFixed(0)}%</b> and the queue is down to{' '}
+            <b>{crossover.alerts.toFixed(0)} alerts a day</b>. So if you optimised purely on value you
+            would run far tighter than any capacity argument would push you, and you would miss most of
+            the fraud.
+          </p>
+          <p>
+            Which is the honest conclusion of the whole exercise: <strong>the threshold is not where the
+            answer is.</strong> Moving it only chooses which cost you pay. The moves that actually improve
+            both sides are better features, better segmentation, and putting the control at the right
+            layer — an alert where a human can resolve it, a decline only where the evidence carries it.
+          </p>
+        </div>
+      ) : null}
 
       <div className="sim-note">
         <h3 className="sub">Two things the controls are for</h3>

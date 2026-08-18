@@ -136,3 +136,12 @@ h3.sub { font-size: .95rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 
   .assumptions dl { grid-template-columns: 1fr; gap: 3px; }
   .assumptions dt { margin-top: 8px; }
 }
+
+.cost-frame { margin: 0 0 11px; font-size: .85rem; line-height: 1.55; color: var(--text-soft);
+  background: var(--info-wash); border-left: 3px solid var(--info); border-radius: 0 var(--r) var(--r) 0; padding: 10px 14px; }
+.crossover { background: var(--ink); color: #efe8ee; border-radius: var(--r-2); padding: 20px 24px; margin: 0 0 20px; }
+.crossover .sub { color: #fff; margin-bottom: 10px; }
+.crossover p { margin: 0 0 11px; font-size: .93rem; line-height: 1.62; color: #ded4dc; }
+.crossover p:last-child { margin-bottom: 0; }
+.crossover b { color: #fff; font-weight: 700; }
+.crossover strong { color: #fff; }
