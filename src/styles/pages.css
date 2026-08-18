@@ -193,7 +193,7 @@ kbd { font-family: var(--mono); font-size: .78rem; background: var(--bg-2); bord
    Every scene must sit inside 1280×720 with no scroll. These values were arrived
    at by measuring scrollHeight against clientHeight in the browser, one scene at
    a time — not by eye. */
-.pres-stage { padding: 16px 26px 18px !important; }
+.pres-stage { padding: 15px 26px 11px !important; }
 .pres-stage .principle.lead { font-size: 1.06rem; margin-bottom: 11px; padding: 10px 18px; line-height: 1.45; }
 .pres-stage .legend-line { margin-top: 9px; font-size: .82rem; line-height: 1.45; }
 .pres-stage .sl-key { padding: 5px 14px; gap: 3px 13px; }
