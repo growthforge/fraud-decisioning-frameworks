@@ -14,8 +14,8 @@ export const WORKED: {
   closing: string
 } = {
   "title": "Card testing on newly issued virtual cards: one rule change, end to end",
-  "standfirst": "Everything before this is method. This is the method applied to one change, followed from the hypothesis that started it to the review that judged it ninety days later. The typology is card testing. The detection sits on newly issued virtual cards, which is deliberate. Bulk virtual card issuance to vendors is a spend-management product's headline feature, so the strongest false positive this rule can produce is a customer using the product exactly as designed.",
-  "syntheticNotice": "SYNTHETIC DATA · ILLUSTRATIVE. Every figure on this page is invented. The portfolio, the volumes, the fraud rate, the precision, the queue timings and the dates were constructed to make the reasoning followable and internally consistent, and nothing here describes any firm's real data. The fraud base rate used is a chosen illustrative rate, not an industry benchmark. Thresholds are portfolio-specific: the numbers chosen here would be wrong on any other book, and there is no industry standard threshold to compare them against.",
+  "standfirst": "A constructed example, not a case history. The method above, applied end to end to one change so the reasoning is visible rather than described — including the part where the process got it wrong, because a clean success would not be worth reading. The typology is chosen deliberately: card testing on newly issued virtual cards is where a spend product's own headline feature generates its strongest false positive. Every figure below is invented and labelled. Nothing here happened to anyone.",
+  "syntheticNotice": "SYNTHETIC · ILLUSTRATIVE · CONSTRUCTED — this is a worked example, not an account of real events. The portfolio, the volumes, the precision figures, the queue timings and the dates are all invented to make the method legible. No firm, no rule and no incident described here exists.",
   "steps": [
     {
       "n": 1,
