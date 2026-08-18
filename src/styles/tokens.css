@@ -1,0 +1,44 @@
+/* Design DNA inherited from the source prep application, opened up for presentation. */
+:root {
+  --ink:            #221d24;
+  --ink-2:          #2e2731;
+  --ink-3:          #3d3341;
+
+  --bg:             #f2eff1;
+  --bg-2:           #faf8f9;
+  --card:           #ffffff;
+
+  --text:           #181419;
+  --text-soft:      #463c47;
+  --muted:          #7a6d7c;
+
+  --line:           #e2dbe1;
+  --line-2:         #efeaee;
+
+  --burgundy:       #8c2f4a;
+  --burgundy-dark:  #6d2038;
+  --burgundy-wash:  #fbe9ee;
+
+  --brass:          #8a6a2c;
+  --brass-wash:     #faf1de;
+
+  --good:           #1f6b4d;
+  --good-wash:      #e6f4ee;
+  --warn:           #8a5a08;
+  --warn-wash:      #fdf3e0;
+  --bad:            #a8271f;
+  --bad-wash:       #fdeceb;
+  --info:           #2f5580;
+  --info-wash:      #e9f0f8;
+
+  --r:   10px;
+  --r-2: 14px;
+  --shadow:   0 1px 2px rgba(24,20,25,.05), 0 4px 16px rgba(24,20,25,.045);
+  --shadow-2: 0 14px 48px rgba(24,20,25,.16);
+
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --nav-w: 236px;
+  --max:   1180px;
+}

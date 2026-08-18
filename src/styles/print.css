@@ -1,0 +1,29 @@
+@media print {
+  /* the site should produce a clean PDF of whatever section is open */
+  .no-print,
+  .sidenav,
+  .topbar,
+  .pres-bar,
+  .pres-hint,
+  .sl-toolbar,
+  .scrim,
+  .drawer { display: none !important; }
+
+  .app { display: block; }
+  main, .pres-stage { padding: 0 !important; overflow: visible !important; }
+  .wrap, .wrap.wide, .wrap.full { max-width: none !important; }
+
+  body { background: #fff; font-size: 11pt; }
+  .card, .sl-shell, .sc2, .sig, .jg-item, .om-layer, .wt-card, .wt-spine {
+    box-shadow: none !important;
+    border-color: #ccc !important;
+    break-inside: avoid;
+  }
+  .sl-canvas { overflow: visible !important; }
+  .sl { width: 100% !important; height: auto !important; }
+  .sec-head { break-after: avoid; }
+  h2, h3 { break-after: avoid; }
+  a { text-decoration: none; color: inherit; }
+  /* show the provenance on paper, since the drawer cannot be opened */
+  .disclaimer { border-left-color: #999 !important; }
+}
