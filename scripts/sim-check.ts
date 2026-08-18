@@ -81,6 +81,9 @@ ok(early.fraudRateBps < mature.fraudRateBps,
    'the measured fraud rate at day 7 is LOWER than at day 60 — so the portfolio looks healthier than it is, from the same missing labels',
    `${early.fraudRateBps.toFixed(1)}bps → ${mature.fraudRateBps.toFixed(1)}bps`)
 ok(early.tp < mature.tp, 'fewer frauds are known at day 7 than at day 60', `${early.tp} → ${mature.tp}`)
+ok(early.recall > mature.recall,
+   'recall measured at day 7 is HIGHER than at day 60 — you learn about the fraud you caught faster than the fraud you missed, so the denominator is understated. This is alert-feedback bias, and it is the effect most likely to be missed',
+   `${(early.recall * 100).toFixed(1)}% → ${(mature.recall * 100).toFixed(1)}%`)
 
 /* 7. the capacity ceiling actually binds somewhere sensible */
 const atDefault = metrics(pop, DEFAULT, days)

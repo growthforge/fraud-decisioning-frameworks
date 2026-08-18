@@ -240,16 +240,38 @@ export function SimulatorPage({ presenting = false }: { presenting?: boolean }) 
           <div>
             <h4>Day 7, day 30, day 60</h4>
             <p>
-              The same operating point, measured at different distances from the decision. Chargebacks and
-              confirmed-fraud reports arrive over weeks, so a fraud that has not yet been confirmed is counted
-              as a legitimate transaction the rule wrongly stopped.
+              The same operating point, measured at different distances from the decision. Confirmed-fraud
+              labels do not arrive when the decision is made. They arrive over weeks, and — this is the part
+              that matters — they arrive at two different speeds. Fraud the rule <em>alerted</em> on confirms
+              quickly, because somebody already looked at it and asked the customer. Fraud the rule
+              <em>missed</em> confirms slowly, because the only route to a label is a cardholder noticing a
+              charge and disputing it.
             </p>
             <p>
-              The bias runs in two directions at once, from one cause. Measured at day 7 the rule&rsquo;s
-              precision looks <em>worse</em> than it is, because unconfirmed frauds are sitting in the
-              false-positive column. And the portfolio&rsquo;s measured fraud rate looks <em>better</em> than
-              it is, because those same frauds have not been counted yet. Quoting either number before the
-              window has matured is quoting a number that is going to move.
+              One cause, three numbers moving in three different directions. Watch them as you switch:
+            </p>
+            <ul className="mat-list">
+              <li>
+                <b>Precision looks worse than it is.</b> Frauds whose labels have not arrived are sitting in
+                the false-positive column, so the rule is being blamed for stopping customers it correctly
+                stopped.
+              </li>
+              <li>
+                <b>Recall looks better than it is.</b> This is the one that catches people out. You learn
+                about the fraud you caught faster than the fraud you missed, so the denominator is
+                understated and the rule looks more complete than it is. It is the same alert-feedback bias
+                that makes a rule estate reinforce its own blind spots: you only ever get labels for what
+                you already flagged.
+              </li>
+              <li>
+                <b>The portfolio looks healthier than it is.</b> The measured fraud rate is well below the
+                truth for the same reason — those frauds have not been counted yet.
+              </li>
+            </ul>
+            <p>
+              So the honest position is not to pick the flattering number or the pessimistic one. It is to
+              refuse to quote any of them until the window has matured, and to say what the maturity window
+              is when you do.
             </p>
           </div>
         </div>
