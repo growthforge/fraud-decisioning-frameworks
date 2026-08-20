@@ -1,43 +1,74 @@
-/* Design DNA inherited from the source prep application, opened up for presentation. */
+/* ─────────────────────────────────────────────────────────────────────────────
+   Aligned to Pleo's published brand guidelines (pleobrand.site), because this is
+   read by the people who wrote them.
+
+   Colour, verbatim from their palette page:
+     Pink #FFC8D0 · Light Pink #FFDEE2 · Yellow #FBEFAF · Mint #ACE3BD
+     Lavender #A69AE3 · White #FFFFFF · Black #000000
+     Greys #ECECEC · #CCCCCC · #908F8E · #666767 · #3E3E3E
+   Their guidance is that the primary palette is "simple but characterful", that
+   colour is dosed with care, and that pink, yellow and grey may be applied as
+   tints at 25%, 50% or 75%. The washes below are 50% tints on white; the full
+   values are kept for small accents, so no page carries more than one loud area.
+
+   Type: Neue Haas Grotesk and Spezia SemiMono are licensed faces we cannot ship.
+   Their guidelines name the substitutes themselves — Helvetica Neue or Arial,
+   and Courier — so those are used rather than a lookalike of our own choosing.
+   Spezia's roles are page numbers, graph details, CTAs and URLs; --mono is used
+   for exactly those here.
+
+   This is a candidate's analytical work product. It carries no Pleo logo and
+   makes no claim to be theirs — the provenance line is on every page.
+   ───────────────────────────────────────────────────────────────────────────── */
 :root {
-  --ink:            #221d24;
-  --ink-2:          #2e2731;
-  --ink-3:          #3d3341;
+  /* dark surfaces — Pleo Black, with light type on top */
+  --ink:            #000000;
+  --ink-2:          #3E3E3E;
+  --ink-3:          #666767;
 
-  --bg:             #f2eff1;
-  --bg-2:           #faf8f9;
-  --card:           #ffffff;
+  /* page and cards: white first, with a 25% tint of Light Grey behind */
+  --bg:             #FAFAFA;
+  --bg-2:           #FFFFFF;
+  --card:           #FFFFFF;
 
-  --text:           #181419;
-  --text-soft:      #463c47;
-  --muted:          #7a6d7c;
+  --text:           #000000;
+  --text-soft:      #3E3E3E;
+  --muted:          #666767;
 
-  --line:           #e2dbe1;
-  --line-2:         #efeaee;
+  --line:           #ECECEC;
+  --line-2:         #F5F5F5;
 
-  --burgundy:       #8c2f4a;
-  --burgundy-dark:  #6d2038;
-  --burgundy-wash:  #fbe9ee;
+  /* the signature. Pink carries emphasis as a field; type on it stays black. */
+  --burgundy:       #000000;
+  --burgundy-dark:  #000000;
+  --burgundy-wash:  #FFE3E7;
+  --pleo-pink:      #FFC8D0;
+  --pleo-pink-lt:   #FFDEE2;
 
-  --brass:          #8a6a2c;
-  --brass-wash:     #faf1de;
+  --brass:          #666767;
+  --brass-wash:     #FDF7D7;
+  --pleo-yellow:    #FBEFAF;
 
-  --good:           #1f6b4d;
-  --good-wash:      #e6f4ee;
-  --warn:           #8a5a08;
-  --warn-wash:      #fdf3e0;
-  --bad:            #a8271f;
-  --bad-wash:       #fdeceb;
-  --info:           #2f5580;
-  --info-wash:      #e9f0f8;
+  /* semantic colours keep their meaning — the type stays readable, the field
+     behind it is a tint of the nearest brand colour */
+  --good:           #1F6B4D;
+  --good-wash:      #D5F1DE;
+  --pleo-mint:      #ACE3BD;
+  --warn:           #6B5A12;
+  --warn-wash:      #FDF7D7;
+  --bad:            #A8271F;
+  --bad-wash:       #FFDEE2;
+  --info:           #3E3E3E;
+  --info-wash:      #D2CCF1;
+  --pleo-lavender:  #A69AE3;
 
   --r:   10px;
   --r-2: 14px;
-  --shadow:   0 1px 2px rgba(24,20,25,.05), 0 4px 16px rgba(24,20,25,.045);
-  --shadow-2: 0 14px 48px rgba(24,20,25,.16);
+  --shadow:   0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.04);
+  --shadow-2: 0 14px 48px rgba(0,0,0,.14);
 
-  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: "Helvetica Neue", Helvetica, Arial, "Segoe UI", system-ui, sans-serif;
+  --mono: "Courier New", Courier, ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --nav-w: 236px;
   --max:   1180px;

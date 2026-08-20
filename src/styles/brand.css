@@ -1,0 +1,29 @@
+/* ── The signature ───────────────────────────────────────────────────────────
+   Pink is the most distinctive thing Pleo owns, and their guidance is that it
+   carries emphasis as a field with black type on it — never as small text on
+   white, where it fails contrast. So the accent stays black wherever it draws
+   a line or a stroke, and the filled states below turn pink instead of black.
+   One loud area per view; everything else is white, black and grey.
+   ─────────────────────────────────────────────────────────────────────────── */
+.nav-item.on            { background: var(--pleo-pink); color: #000; }
+.nav-item.on .nav-n     { opacity: .75; }
+.brand-mark i,
+.brand-mark i:nth-child(2) { background: var(--pleo-pink); }
+
+.btn.solid, .tb-btn.solid { background: var(--pleo-pink); border-color: var(--pleo-pink); color: #000; }
+.btn.solid:hover, .tb-btn.solid:hover { background: var(--pleo-pink-lt); border-color: var(--pleo-pink-lt); color: #000; }
+.filters button.on      { background: var(--pleo-pink); border-color: var(--pleo-pink); color: #000; }
+
+.om-layer.on .om-letter { background: var(--pleo-pink); color: #000; }
+.pm-tab.on              { background: var(--pleo-pink); border-color: var(--pleo-pink); color: #000; }
+.eco-centre rect        { fill: var(--pleo-pink); }
+.eco-centre text        { fill: #000; }
+
+/* the thesis rule and the section markers: the one place pink reads as a line,
+   at 3px, where weight carries it rather than contrast */
+.ov-quote               { border-left-color: var(--pleo-pink) !important; }
+.ty-pres-card           { border-top-color: var(--pleo-pink) !important; }
+.detail-list.q li::before { background: var(--pleo-pink); }
+
+/* the group labels sat at 4.46 on black — Pleo's own Dark Grey clears it */
+.nav-glabel { color: #908F8E; }
